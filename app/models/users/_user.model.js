@@ -53,7 +53,7 @@ const schema = new mongoose.Schema(
     },
     enabled: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     code: {
       type: String,
@@ -181,5 +181,4 @@ schema.statics.generateRandomPassword = async function () {
 
 module.exports = $baseModel("user", schema, {
   responseFunc: response,
-  // here you can add any option with in baseSchema
 });
