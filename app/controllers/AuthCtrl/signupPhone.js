@@ -47,19 +47,19 @@ module.exports = $baseCtrl(
     }
 
     // save user to db
-    const newUser = await new models.student(req.body).save();
+    const newClient = await new models.client(req.body).save();
 
     const payload = {
-      userId: newUser.id,
-      userRole: newUser.role,
-      enabled: newUser.enabled,
+      userId: newClient.id,
+      userRole: newClient.role,
+      enabled: newClient.enabled,
     };
     const options = {};
     const token = jwt.sign(payload, process.env.JWT_SECRET, options);
 
     const response = {
       token: token,
-      user: newUser,
+      user: newClient,
     };
 
     return APIResponse.Created(res, response);

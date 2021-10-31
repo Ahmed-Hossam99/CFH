@@ -10,7 +10,6 @@ const passwordRules = /^.{6,}$/;
 const emailRules =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRules = /^\+201[0125][0-9]{8}$/;
-// https://regexr.com/3c53v
 
 const schema = new mongoose.Schema(
   {
@@ -94,7 +93,6 @@ const response = (doc, options) => {
     id: doc.id,
     isAllowedToResetPassword: doc.isAllowedToResetPassword,
     username: doc.username,
-    grade: doc.grade, // for student
     gender: doc.gender,
     photo: doc.photo,
     email: doc.email,
