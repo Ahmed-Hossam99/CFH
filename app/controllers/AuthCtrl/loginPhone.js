@@ -5,27 +5,23 @@ const { APIResponse } = require("../../utils");
 const bcrypt = require("bcryptjs");
 
 module.exports = $baseCtrl(async (req, res) => {
-  // Check if values not entered by user
   if (req.body.phone === undefined || req.body.password === undefined) {
-    return APIResponse.BadRequest(res, "You have to fill all options");
+    return APIResponse.BadRequest(res, "password/phone are required");
   }
 
-  // check if phone already exist
   const user = await models._user.findOne({ phone: req.body.phone });
   if (!user) {
-    return APIResponse.Unauthorized(res, "Invalid phone or password 1");
-  }
-  // check if password correct
-  if (!user.password)
-    return APIResponse.Unauthorized(res, "This user login by socialMedia");
-  const isMatch = await bcrypt.compare(req.body.password, user.password);
-  if (!isMatch) {
-    return APIResponse.Unauthorized(res, "Invalid phone or password 2");
+    return res.status(401).json({ flag: 1002 });
   }
 
-  // if user not enter code , his email still disabled
+  if (!user.password) return res.status(401).json({ flag: 1004 });
+  const isMatch = await bcrypt.compare(req.body.password, user.password);
+  if (!isMatch) {
+    return res.status(401).json({ flag: 1003 });
+  }
+
   if (!user.enabled) {
-    return APIResponse.Unauthorized(res, "Your account is disabled");
+    return res.status(401).json({ flag: 1005 });
   }
 
   let payload = { userId: user.id, userRole: user.role };
