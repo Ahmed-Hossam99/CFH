@@ -1,41 +1,50 @@
-const mongoose = require('mongoose');
-const $baseModel = require('../$baseModel');
+const mongoose = require("mongoose");
+const $baseModel = require("./$baseModel");
 
 const schema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     body: {
       type: String,
-      required: true
+      required: true,
     },
     icon: {
       type: String,
       default:
-        'https://res.cloudinary.com/derossy-backup/image/upload/v1555206853/deross-samples/notifications/bell.png'
+        "https://res.cloudinary.com/derossy-backup/image/upload/v1555206853/deross-samples/notifications/bell.png",
     },
     initiator: {
       type: Number,
-      ref: 'user'
+      ref: "user",
     },
     receiver: {
       type: Number,
-      ref: 'user'
+      ref: "user",
     },
     read: {
       type: Boolean,
-      default: false
+      default: false,
     },
     subjectType: {
       type: String,
-      enum: ["post", "comment", "solution", "materila", "lesson", "exam", "session", "admin"]
+      enum: [
+        "post",
+        "comment",
+        "solution",
+        "materila",
+        "lesson",
+        "exam",
+        "session",
+        "admin",
+      ],
     },
     subject: {
       type: Number,
-      refPath: "subjectType"
-    }
+      refPath: "subjectType",
+    },
   },
   { timestamps: true }
 );
@@ -44,12 +53,12 @@ schema.methods.toFirebaseNotification = function () {
   return {
     notification: {
       title: this.title,
-      body: this.body
-    }
+      body: this.body,
+    },
   };
 };
 
-const response = doc => {
+const response = (doc) => {
   return {
     id: doc.id,
     // type: doc.type,
@@ -62,10 +71,10 @@ const response = doc => {
     subjectType: doc.subjectType,
     subject: doc.subject,
     createdAt: doc.createdAt,
-    updatedAt: doc.updatedAt
+    updatedAt: doc.updatedAt,
   };
 };
 
-module.exports = $baseModel('notification', schema, {
-  responseFunc: response
+module.exports = $baseModel("notification", schema, {
+  responseFunc: response,
 });

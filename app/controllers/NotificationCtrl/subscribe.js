@@ -31,6 +31,5 @@ module.exports = $baseCtrl(async (req, res) => {
   }
 
   await user.save();
-  console.log(user.pushTokens)
   return APIResponse.NoContent(res);
 });
