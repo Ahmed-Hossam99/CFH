@@ -34,6 +34,7 @@ const schema = new mongoose.Schema(
 const response = (doc) => {
   return {
     id: doc.id,
+    category: doc.category,
     image: doc.image,
     titleAr: doc.titleAr,
     titleEn: doc.titleEn,

@@ -5,19 +5,19 @@ const policies = require("../../policies");
 const router = express.Router();
 
 router.post(
-  "/category",
+  "/category/:id/topics",
   policies.isAllowed(["admin"]),
-  ctrls.CategoryCtrl.createOne
+  ctrls.TopicCtrl.createOne
 );
 router.patch(
-  "/category/:id",
+  "/topics/:id",
   policies.isAllowed(["admin"]),
-  ctrls.CategoryCtrl.updateOne
+  ctrls.TopicCtrl.updateOne
 );
 router.delete(
-  "/category/:id",
+  "/topics/:id",
   policies.isAllowed(["admin"]),
-  ctrls.CategoryCtrl.deleteOne
+  ctrls.TopicCtrl.deleteOne
 );
 
 module.exports = router;
