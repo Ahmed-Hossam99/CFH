@@ -25,6 +25,8 @@ apiRouter.post(
   ctrls.AuthCtrl.loginGoogle
 );
 apiRouter.post("/login-facebook", ctrls.AuthCtrl.loginFacebook);
+apiRouter.get("/category", ctrls.CategoryCtrl.fetchAll);
+apiRouter.get("/category/:id", ctrls.CategoryCtrl.fetchOne);
 
 apiRouter.post("/test", ctrls.AuthCtrl.test);
 // private
