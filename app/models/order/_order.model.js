@@ -1,0 +1,48 @@
+const mongoose = require("mongoose");
+const $baseModel = require("../$baseModel");
+
+const schema = new mongoose.Schema(
+  {
+    client: {
+      type: Number,
+      ref: "user",
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true, discriminatorKey: "type" }
+);
+
+const response = (doc) => {
+  return {
+    id: doc.id,
+    client: doc.client,
+    username: doc.username,
+    phone: doc.phone,
+    result: doc.result,
+    products: doc.products,
+    images: doc.images,
+    day: doc.day,
+    time: doc.time,
+    address: doc.address,
+    gender: doc.gender,
+    age: doc.age,
+    status: doc.status,
+    adminNotes: doc.adminNotes,
+    clientNotes: doc.clientNotes,
+    offers: doc.offers,
+    createdAt: doc.createdAt,
+    updatedAt: doc.updatedAt,
+  };
+};
+
+module.exports = $baseModel("order", schema, {
+  responseFunc: response,
+});
