@@ -15,7 +15,7 @@ router.patch(
     ctrls.RegionCtrl.updateOne
 );
 router.get(
-    "/city/:id/regions",
+    "/regions",
     policies.isAllowed(["admin"]),
     ctrls.RegionCtrl.fetchAll
 );

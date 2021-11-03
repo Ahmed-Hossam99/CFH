@@ -6,9 +6,8 @@ module.exports = $baseCtrl(async (req, res) => {
     const cities = await models.city.fetchAll(
         req.allowPagination,
         req.queryFilter,
-        {
-            ...req.queryOptions,
-        }
+        req.queryOptions,
+
     );
     return APIResponse.Ok(res, cities);
 });
