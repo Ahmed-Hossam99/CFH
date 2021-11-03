@@ -6,7 +6,6 @@ module.exports = $baseCtrl(async (req, res) => {
 
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);
-    // fetch specific regions by id
     const region = await models.region.findById(id);
     if (!region) return APIResponse.NotFound(res, "NO region With That Id");
     await models.branch.deleteMany({ region: id });

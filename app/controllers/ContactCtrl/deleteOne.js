@@ -6,7 +6,6 @@ module.exports = $baseCtrl(async (req, res) => {
 
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);
-    // fetch specific citys by id
     const contact = await models.contact.findById(id);
     if (!contact) return APIResponse.NotFound(res, "NO contact With That Id");
 

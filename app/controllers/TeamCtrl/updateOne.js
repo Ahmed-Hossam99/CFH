@@ -5,7 +5,6 @@ const { APIResponse } = require("../../utils");
 module.exports = $baseCtrl(async (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);
-    // fetch specif level
     const team = await models.team.findById(id);
     if (!team) return APIResponse.NotFound(res, "No team With That Id");
     if (req.body.files && req.files['image']) {
