@@ -14,16 +14,7 @@ router.patch(
     policies.isAllowed(["admin"]),
     ctrls.InstructionCtrl.updateOne
 );
-router.get(
-    "/instruction/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.InstructionCtrl.fetchOne
-);
-router.get(
-    "/instructions",
-    policies.isAllowed(["admin"]),
-    ctrls.InstructionCtrl.fetchAll
-);
+
 router.delete(
     "/instruction/:id",
     policies.isAllowed(["admin"]),
