@@ -3,8 +3,6 @@ const models = require('../../models');
 const { APIResponse } = require('../../utils');
 
 module.exports = $baseCtrl(async (req, res) => {
-    if (req.me.role !== 'admin')
-        return APIRespons.Unauthorized(res, "don't allow to do this action")
 
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);

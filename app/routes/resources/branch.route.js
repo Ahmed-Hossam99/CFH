@@ -14,7 +14,7 @@ router.patch(
     policies.isAllowed(["admin"]),
     ctrls.BranchCtrl.updateOne
 ); router.get(
-    "/region/:id/branches",
+    "/branches",
     policies.isAllowed(["admin"]),
     ctrls.BranchCtrl.fetchAll
 );
