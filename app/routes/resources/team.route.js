@@ -14,16 +14,7 @@ router.patch(
     policies.isAllowed(["admin"]),
     ctrls.TeamCtrl.updateOne
 );
-router.get(
-    "/team/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.TeamCtrl.fetchOne
-);
-router.get(
-    "/teams",
-    policies.isAllowed(["admin"]),
-    ctrls.TeamCtrl.fetchAll
-);
+
 router.delete(
     "/team/:id",
     policies.isAllowed(["admin"]),

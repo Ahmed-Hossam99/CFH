@@ -4,11 +4,7 @@ const policies = require("../../policies");
 
 const router = express.Router();
 
-router.post(
-    "/contact",
-    policies.isAllowed(["admin"]),
-    ctrls.ContactCtrl.createOne
-);
+
 router.patch(
     "/contact/:id",
     policies.isAllowed(["admin"]),

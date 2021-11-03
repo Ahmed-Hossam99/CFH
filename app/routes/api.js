@@ -30,6 +30,20 @@ apiRouter.get("/category/:id", ctrls.CategoryCtrl.fetchOne);
 apiRouter.get("/topics", ctrls.TopicCtrl.fetchAll);
 apiRouter.get("/topics/:id", ctrls.TopicCtrl.fetchOne);
 
+
+apiRouter.get("/instruction/:id", ctrls.InstructionCtrl.fetchOne);
+apiRouter.get("/instructions", ctrls.InstructionCtrl.fetchAll);
+
+apiRouter.get("/team/:id", ctrls.TeamCtrl.fetchOne);
+apiRouter.get("/teams", ctrls.TeamCtrl.fetchAll);
+
+apiRouter.get("/about/:id", ctrls.AboutCtrl.fetchOne);
+apiRouter.get("/abouts", ctrls.AboutCtrl.fetchAll);
+
+apiRouter.post("/contact", ctrls.ContactCtrl.createOne);
+
+
+
 apiRouter.post("/test", ctrls.AuthCtrl.test);
 // private
 apiRouter.use(policies.isAuthenticated);

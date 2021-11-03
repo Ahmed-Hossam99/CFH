@@ -10,13 +10,14 @@ const schema = new mongoose.Schema(
     titleEn: {
       type: String,
     },
-    detailsAr: {
+    detailsAr: [{
       type: String,
       required: true,
-    },
-    detailsEn: {
+    }],
+    detailsEn: [{
       type: String,
-    },
+      required: true,
+    }],
   },
   { timestamps: true }
 );
