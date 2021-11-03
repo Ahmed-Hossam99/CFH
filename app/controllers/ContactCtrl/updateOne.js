@@ -7,9 +7,9 @@ module.exports = $baseCtrl(async (req, res) => {
     if (isNaN(id)) return APIResponse.NotFound(res);
 
     // fetch specif level
-    const city = await models.city.findById(id);
-    if (!city) return APIResponse.NotFound(res, "No city With That Id");
-    await city.set(req.body).save();
+    const contact = await models.contact.findById(id);
+    if (!contact) return APIResponse.NotFound(res, "No contact With That Id");
+    await contact.set(req.body).save();
 
-    return APIResponse.Ok(res, city);
+    return APIResponse.Ok(res, contact);
 });

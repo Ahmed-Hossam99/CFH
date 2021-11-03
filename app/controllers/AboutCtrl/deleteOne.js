@@ -5,11 +5,10 @@ const { APIResponse } = require("../../utils");
 module.exports = $baseCtrl(async (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);
+    const about = await models.about.findById(id);
+    if (!about) return APIResponse.NotFound(res, "NO details With That Id");
 
-    // fetch specif level
-    const city = await models.city.findById(id);
-    if (!city) return APIResponse.NotFound(res, "No city With That Id");
-    await city.set(req.body).save();
+    await about.delete();
 
-    return APIResponse.Ok(res, city);
+    return APIResponse.NoContent(res);
 });

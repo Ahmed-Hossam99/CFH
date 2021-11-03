@@ -21,6 +21,7 @@ const schema = new mongoose.Schema(
     },
     nameEn: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }

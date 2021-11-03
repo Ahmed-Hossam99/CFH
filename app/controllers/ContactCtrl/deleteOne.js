@@ -3,13 +3,14 @@ const models = require("../../models");
 const { APIResponse } = require("../../utils");
 
 module.exports = $baseCtrl(async (req, res) => {
+
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);
+    // fetch specific citys by id
+    const contact = await models.contact.findById(id);
+    if (!contact) return APIResponse.NotFound(res, "NO contact With That Id");
 
-    // fetch specif level
-    const city = await models.city.findById(id);
-    if (!city) return APIResponse.NotFound(res, "No city With That Id");
-    await city.set(req.body).save();
+    await contact.delete();
 
-    return APIResponse.Ok(res, city);
+    return APIResponse.NoContent(res);
 });

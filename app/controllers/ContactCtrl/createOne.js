@@ -4,8 +4,8 @@ const { APIResponse } = require("../../utils");
 
 module.exports = $baseCtrl(
     async (req, res) => {
-        const city = await new models.city(req.body).save();
+        const newContact = await new models.contact(req.body).save();
 
-        return APIResponse.Created(res, city);
+        return APIResponse.Created(res, newContact);
     }
 );
