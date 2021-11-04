@@ -9,7 +9,7 @@ module.exports = $baseCtrl(
   cloudinaryStorage,
   async (req, res) => {
     const branchs = await models.branch.find({ _id: { $in: req.body.branches } });
-    console.log(branchs)
+
     const adsBranchs = branchs.map(
       (_branch) => _branch.id);
     req.body.branches = adsBranchs

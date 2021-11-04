@@ -16,7 +16,7 @@ module.exports = $baseCtrl(
       req.body.image = req.files["image"][0].secure_url;
     }
     if (req.body.branches) {
-      console.log('here')
+
       const branchs = await models.branch.find({ _id: { $in: req.body.branches } });
       const adsBranchs = branchs.map(
         (_branch) => _branch.id);
