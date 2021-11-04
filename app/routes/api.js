@@ -39,6 +39,8 @@ apiRouter.get("/teams", ctrls.TeamCtrl.fetchAll);
 
 apiRouter.get("/about/:id", ctrls.AboutCtrl.fetchOne);
 apiRouter.get("/abouts", ctrls.AboutCtrl.fetchAll);
+apiRouter.get("/ads/:id", ctrls.AdsCtrl.fetchOne);
+apiRouter.get("/ads", ctrls.AdsCtrl.fetchAll);
 
 apiRouter.post("/contact", ctrls.ContactCtrl.createOne);
 

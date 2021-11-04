@@ -8,6 +8,13 @@ const schema = new mongoose.Schema(
       default:
         "https://res.cloudinary.com/nile-pharmacy/image/upload/v1558858260/assets/placeholder_a1ubee.jpg",
     },
+    titleAr: {
+      type: String,
+      required: true,
+    },
+    titleEn: {
+      type: String,
+    },
     descriptionAr: {
       type: String,
       required: true,
@@ -30,6 +37,8 @@ const response = (doc) => {
     id: doc.id,
     branches: doc.branches,
     image: doc.image,
+    titleAr: doc.titleAr,
+    titleEn: doc.titleEn,
     descriptionAr: doc.descriptionAr,
     descriptionEn: doc.descriptionEn,
     createdAt: doc.createdAt,
