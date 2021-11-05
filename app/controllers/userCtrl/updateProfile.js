@@ -8,24 +8,30 @@ module.exports = $baseCtrl(
   [{ name: "photo", maxCount: 1 }],
   cloudinaryStorage,
   async (req, res) => {
-    const authUser = req.authenticatedUser;
-    const user = await models._user.findById(authUser.id);
-    // Upload photo if enter by user
+    const authUser = req.me;
     if (req.files && req.files["photo"]) {
       req.body.photo = req.files["photo"][0].secure_url;
-    } else {
-      delete req.body.photo;
+    }
+    if (req.body.city) {
+      cId = await models.city.findById(req.body.city)
+      if (!cId) return APIResponse.NotFound(res, 'no city with that id ')
+      authUser.city = cId.id
+    }
+    if (req.body.region) {
+      rId = await models.region.findById(req.body.region)
+      if (!rId) return APIResponse.NotFound(res, 'no region with that id ')
+      if (req.body.city !== rId.id && authUser.city !== rId.city)
+        return APIResponse.BadRequest(res, 'region not affiliated with this city ')
+      authUser.region = rId.id
     }
     delete req.body.password;
-    delete req.body.phone;
     delete req.body.role;
     delete req.body.pushTokens;
     // save user to db
-    await user.set(req.body).save();
+    await authUser.set(req.body).save();
     const response = {
-      user,
+      authUser,
     };
-
     return APIResponse.Created(res, response);
   }
 );

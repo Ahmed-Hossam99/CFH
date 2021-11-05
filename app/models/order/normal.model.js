@@ -42,7 +42,7 @@ const schema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ["accepted", "rejected", "pending"],
+      enum: ["accepted", "rejected", "pending", "inProgress", "done"],
     },
     adminNotes: {
       type: String,

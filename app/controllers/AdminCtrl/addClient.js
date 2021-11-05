@@ -18,18 +18,32 @@ module.exports = $baseCtrl(
                 "username/password/phone are required"
             );
         }
-        let existPhone = await models._user.findOne({ phone: req.body.phone });
-        if (existPhone) {
+        let user;
+
+        if (req.body.phone) {
+            user = await models._user.findOne({
+                phone: req.body.phone
+
+            });
+        }
+        else {
+            user = await models._user.findOne({
+                email: req.body.email,
+            });
+        }
+        if (user) {
+            console.log(user)
             return res.status(400).json({ flag: 1001 });
         }
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(req.body.password, salt);
         req.body.password = hash;
         req.body.enabled = true;
+        req.body.role = 'client';
         //upload image by user 
         if (req.files && req.files["photo"]) {
             req.body.photo = req.files["photo"][0].secure_url;
         }
-        const newClient = await new models._user(req.body).save()
+        const newClient = await new models.client(req.body).save()
         return APIResponse.Created(res, newClient)
     })

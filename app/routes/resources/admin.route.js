@@ -7,7 +7,7 @@ const router = express.Router();
 router.post(
     "/add-client",
     policies.isAllowed(["admin"]),
-    ctrls.userCtrl.addClient
+    ctrls.AdminCtrl.addClient
 );
 
 

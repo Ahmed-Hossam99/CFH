@@ -9,6 +9,15 @@ const schema = new mongoose.Schema(
         ref: "offer",
       },
     ],
+    image: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/derossy-backup/image/upload/v1555206304/deross-samples/placeholder-profile-male.jpg",
+    }, icon: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/derossy-backup/image/upload/v1555206304/deross-samples/placeholder-profile-male.jpg",
+    },
   },
   { discriminatorKey: "type" }
 );
