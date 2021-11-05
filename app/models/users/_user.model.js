@@ -100,6 +100,8 @@ const response = (doc, options) => {
     phone: doc.phone,
     country: doc.country,
     enabled: doc.enabled,
+    city: doc.city,
+    region: doc.region,
     birthdate: doc.birthdate,
     pushTokens: doc.pushTokens,
     role: doc.role,
