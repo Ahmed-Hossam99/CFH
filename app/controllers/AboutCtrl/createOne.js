@@ -9,8 +9,8 @@ module.exports = $baseCtrl(
 
 
         let about = await models.about.findOne();
-        if (req.files && req.files["image"]) {
-            req.body.image = req.files["image"][0].secure_url;
+        if (req.files && req.files['image']) {
+            req.body.image = req.files['image'][0].secure_url;
         }
         if (about) {
             await about.set(req.body).save();
