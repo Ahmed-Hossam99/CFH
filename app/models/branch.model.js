@@ -11,14 +11,6 @@ const schema = new mongoose.Schema(
             type: String,
             require: true
         },
-        descriptionAr: {
-            type: String,
-            require: true
-        },
-        descriptionEn: {
-            type: String,
-            require: true
-        },
         region: {
             type: Number,
             ref: 'region',
@@ -44,8 +36,6 @@ const response = (doc) => {
         id: doc.id,
         titleAr: doc.titleAr,
         titleEn: doc.titleEn,
-        descriptionAr: doc.descriptionAr,
-        descriptionEn: doc.descriptionEn,
         region: doc.region,
         city: doc.city,
         coordinates: doc.coordinates,
