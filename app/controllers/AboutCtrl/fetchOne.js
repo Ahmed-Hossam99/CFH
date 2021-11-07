@@ -1,12 +1,9 @@
-const $baseCtrl = require("../$baseCtrl");
-const models = require("../../models");
-const { APIResponse } = require("../../utils");
+const $baseCtrl = require('../$baseCtrl');
+const models = require('../../models');
+const { APIResponse } = require('../../utils');
 
 module.exports = $baseCtrl(async (req, res) => {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return APIResponse.NotFound(res);
-    const about = await models.about.findById(id);
-    if (!about) return APIResponse.NotFound(res, "about not found");
-
+    let about = await models.about.findOne();
+    if (!about) return APIResponse.NotFound(res, 'No socail provided');
     return APIResponse.Ok(res, about);
 });

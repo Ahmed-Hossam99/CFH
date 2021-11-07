@@ -10,7 +10,7 @@ router.post(
     ctrls.AboutCtrl.createOne
 );
 router.patch(
-    "/about/:id",
+    "/about",
     policies.isAllowed(["admin"]),
     ctrls.AboutCtrl.updateOne
 );

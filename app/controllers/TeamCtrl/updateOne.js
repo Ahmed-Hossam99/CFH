@@ -7,7 +7,7 @@ module.exports = $baseCtrl(async (req, res) => {
     if (isNaN(id)) return APIResponse.NotFound(res);
     const team = await models.team.findById(id);
     if (!team) return APIResponse.NotFound(res, "No team With That Id");
-    if (req.body.files && req.files['image']) {
+    if (req.files && req.files['image']) {
         req.body.image = req.files['image'][0].secure_url;
     }
     await team.set(req.body).save();
