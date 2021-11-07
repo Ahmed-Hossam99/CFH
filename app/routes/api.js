@@ -37,7 +37,7 @@ apiRouter.get("/instructions", ctrls.InstructionCtrl.fetchAll);
 apiRouter.get("/team/:id", ctrls.TeamCtrl.fetchOne);
 apiRouter.get("/teams", ctrls.TeamCtrl.fetchAll);
 
-apiRouter.get("/about/:id", ctrls.AboutCtrl.fetchOne);
+apiRouter.get("/about/", ctrls.AboutCtrl.fetchOne);
 apiRouter.get("/abouts", ctrls.AboutCtrl.fetchAll);
 
 apiRouter.post("/contact", ctrls.ContactCtrl.createOne);

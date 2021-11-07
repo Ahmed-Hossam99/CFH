@@ -1,16 +1,24 @@
 const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
+const cloudinaryStorage = require("../../services/cloudinaryStorage");
 
-module.exports = $baseCtrl(async (req, res) => {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return APIResponse.NotFound(res);
-    const about = await models.about.findById(id);
-    if (!about) return APIResponse.NotFound(res, "No about With That Id");
-    if (req.body.files && req.files['image']) {
-        req.body.image = req.files['image'][0].secure_url;
-    }
-    await about.set(req.body).save();
+module.exports = $baseCtrl(
+    [{ name: "image", maxCount: 1 }],
+    cloudinaryStorage,
+    async (req, res) => {
+        let about = await models.about.findOne()
+        if (req.files && req.files['image']) {
+            req.body.image = req.files['image'][0].secure_url;
+            console.log("here", req.body.image)
+        }
+        if (about) {
 
-    return APIResponse.Ok(res, about);
-});
+            await about.set(req.body).save()
+        } else {
+
+            about = await new models.about(req.body).save()
+        }
+        return APIResponse.Ok(res, about)
+
+    });
