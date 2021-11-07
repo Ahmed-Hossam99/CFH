@@ -8,6 +8,11 @@ const schema = new mongoose.Schema(
       default:
         "https://res.cloudinary.com/nile-pharmacy/image/upload/v1558858260/assets/placeholder_a1ubee.jpg",
     },
+    icon: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/nile-pharmacy/image/upload/v1558858260/assets/placeholder_a1ubee.jpg",
+    },
     titleAr: {
       type: String,
       required: true,
