@@ -10,7 +10,6 @@ module.exports = $baseCtrl(
         let about = await models.about.findOne()
         if (req.files && req.files['image']) {
             req.body.image = req.files['image'][0].secure_url;
-            console.log("here", req.body.image)
         }
         if (about) {
 

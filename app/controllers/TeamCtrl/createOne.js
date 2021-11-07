@@ -7,8 +7,14 @@ module.exports = $baseCtrl(
     cloudinaryStorage,
     async (req, res) => {
 
-        if (req.files && req.files["image"]) {
-            req.body.image = req.files["image"][0].secure_url;
+        // if (req.files && req.files["image"]) {
+        //     req.body.image = req.files["image"][0].secure_url;
+        //     console.log(req.body.image)
+        // }
+        if (req.files && req.files['image']) {
+            req.body.image = req.files['image'][0].secure_url;
+            console.log(req.body.image)
+
         }
         const team = await new models.team(req.body).save();
 
