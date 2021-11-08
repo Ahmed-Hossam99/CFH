@@ -5,12 +5,23 @@ const { APIResponse } = require("../../utils");
 module.exports = $baseCtrl(async (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);
-    const team = await models.team.findById(id);
-    if (!team) return APIResponse.NotFound(res, "No team With That Id");
-    if (req.body.files && req.files['image']) {
-        req.body.image = req.files['image'][0].secure_url;
+    const test = await models.test.findById(id);
+    if (!test) return APIResponse.NotFound(res, "No test With That Id");
+    if (req.body.branches) {
+        const branchs = await models.branch.find({ _id: { $in: req.body.branches } });
+        const testBranchs = branchs.map(
+            (_branch) => _branch.id);
+        for (let i = 0; i < testBranchs.length; i++) {
+            const branch = testBranchs[i]
+            if (test.branches.indexOf(branch) == -1) {
+                test.branches.push(branch)
+            }
+        }
     }
-    await team.set(req.body).save();
+    if (req.body.files && req.files['icon']) {
+        req.body.icon = req.files['icon'][0].secure_url;
+    }
+    await test.set(req.body).save();
 
-    return APIResponse.Ok(res, team);
+    return APIResponse.Ok(res, test);
 });

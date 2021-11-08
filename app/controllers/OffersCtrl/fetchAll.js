@@ -3,14 +3,14 @@ const models = require("../../models");
 const { APIResponse } = require("../../utils");
 
 module.exports = $baseCtrl(async (req, res) => {
-    const tests = await models.test.fetchAll(
+    const offers = await models.offer.fetchAll(
         req.allowPagination,
         req.queryFilter,
         {
 
             ...req.queryOptions,
-            populate: ['branches']
+            populate: ['tests']
         }
     );
-    return APIResponse.Ok(res, tests);
+    return APIResponse.Ok(res, offers);
 });

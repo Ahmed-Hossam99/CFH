@@ -9,13 +9,19 @@ const schema = new mongoose.Schema(
         ref: "test",
       },
     ],
-    measuresAr: {
-      type: String,
-      required: true,
-    },
-    measuresEn: {
-      type: String,
-    },
+    measures: [
+      {
+        _id: false,
+        measuresAr: {
+          type: String,
+          required: true,
+        },
+        measuresEn: {
+          type: String,
+        },
+      }
+
+    ],
     availableAt: {
       type: String,
       required: true,
