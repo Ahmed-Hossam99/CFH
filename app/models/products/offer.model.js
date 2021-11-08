@@ -9,6 +9,11 @@ const schema = new mongoose.Schema(
         ref: "test",
       },
     ],
+    offerType: {
+      type: String,
+      required: true,
+      enum: ["annually", "monthly"],
+    },
     detailsAr: {
       type: String,
       required: true,

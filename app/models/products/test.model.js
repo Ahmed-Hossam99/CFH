@@ -15,7 +15,28 @@ const schema = new mongoose.Schema(
       required: true,
       enum: ["home", "lab", "both"],
     },
-    possibleResults: [{ type: String }],
+    possibleResults: [
+      {
+        _id: false,
+        titleAr: {
+          type: String,
+          required: true
+        },
+        titleEn: {
+          type: String,
+          required: true
+        },
+        descriptionAr: {
+          type: String,
+          required: true
+        },
+        descriptionEn: {
+          type: String,
+          required: true
+        }
+      }
+
+    ],
   },
   { discriminatorKey: "type" }
 );
