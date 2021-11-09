@@ -14,16 +14,7 @@ router.patch(
     policies.isAllowed(["admin"]),
     ctrls.CityCtrl.updateOne
 );
-router.get(
-    "/city/:id",
 
-    ctrls.CityCtrl.fetchOne
-);
-router.get(
-    "/cities",
-
-    ctrls.CityCtrl.fetchAll
-);
 router.delete(
     "/city/:id",
     policies.isAllowed(["admin"]),
