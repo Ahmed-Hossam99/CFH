@@ -19,35 +19,16 @@ router.post(
 );
 //=============================
 router.patch(
-    "/tests/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.updateOne
-);
-router.patch(
-    "/packages/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.updateOne
-);
-router.patch(
-    "/offers/:id",
+    "/product/:id",
     policies.isAllowed(["admin"]),
     ctrls.ProductCtrl.updateOne
 );
 //======================================
 router.delete(
-    "/tests/:id",
+    "/product/:id",
     policies.isAllowed(["admin"]),
     ctrls.ProductCtrl.deleteOne
 );
-router.delete(
-    "/packages/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.deleteOne
-);
-router.delete(
-    "/offers/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.deleteOne
-);
+
 
 module.exports = router;
