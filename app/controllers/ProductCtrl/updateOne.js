@@ -22,25 +22,13 @@ module.exports = $baseCtrl(
             const branchs = await models.branch.find({ _id: { $in: req.body.branches } });
             const branchesIds = branchs.map(
                 (_branch) => _branch.id);
-            req.body.tests = branchesIds
-            // for (let i = 0; i < typeBranchs.length; i++) {
-            //     const branch = typeBranchs[i]
-            //     if (product.branches.indexOf(branch) == -1) {
-            //         product.branches.push(branch)
-            //     }
-            // }
+            req.body.branches = branchesIds
         }
         if (req.body.tests) {
             const tests = await models.test.find({ _id: { $in: req.body.tests } });
             const testsIds = tests.map(
                 (_test) => _test.id);
             req.body.tests = testsIds
-            // for (let i = 0; i < typetests.length; i++) {
-            //     const test = typetests[i]
-            //     if (product.tests.indexOf(test) == -1) {
-            //         product.tests.push(test)
-            //     }
-            // }
         }
         if (req.files && req.files['image']) {
             req.body.image = req.files['image'][0].secure_url;

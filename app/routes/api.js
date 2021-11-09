@@ -49,13 +49,12 @@ apiRouter.post("/contact", ctrls.ContactCtrl.createOne);
 
 apiRouter.get("/tests", ctrls.ProductCtrl.fetchAll);
 apiRouter.get("/packages", ctrls.ProductCtrl.fetchAll);
-
 apiRouter.get("/offers", ctrls.ProductCtrl.fetchAll);
 // apiRouter.get("/package/:id", ctrls.PackageCtrl.fetchOne);
 
-apiRouter.get("/tests/:id", ctrls.ProductCtrl.fetchOne);
-apiRouter.get("/packages/:id", ctrls.ProductCtrl.fetchOne);
-apiRouter.get("/offers/:id", ctrls.ProductCtrl.fetchOne);
+apiRouter.get("/product/:id", ctrls.ProductCtrl.fetchOne);
+// apiRouter.get("/packages/:id", ctrls.ProductCtrl.fetchOne);
+// apiRouter.get("/offers/:id", ctrls.ProductCtrl.fetchOne);
 
 
 
