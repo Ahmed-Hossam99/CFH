@@ -7,7 +7,7 @@ module.exports = $baseCtrl(async (req, res) => {
     let type = routePath[1] === "tests" ? "test" : routePath[1] === "packages" ? "package" : "offer";
     const id = parseInt(req.params.id);
     if (isNaN(id)) return APIResponse.NotFound(res);
-    const product = await models[type].findById(id).populate(['tests']);
+    const product = await models._product.findById(id).populate(['tests']);
     if (!product) return APIResponse.NotFound(res, "product not found");
 
     return APIResponse.Ok(res, product);

@@ -7,13 +7,13 @@ module.exports = $baseCtrl(async (req, res) => {
     let routePath = req.route.path.split('/')
     let type = routePath[1] === "tests" ? "test" : routePath[1] === "packages" ? "package" : "offer";
 
-    const products = await models[type].fetchAll(
+    const products = await models._product.fetchAll(
         req.allowPagination,
         req.queryFilter,
         {
 
             ...req.queryOptions,
-            //populate: ['tests']
+            populate: ['tests', 'branches']
         }
     );
     return APIResponse.Ok(res, products);
