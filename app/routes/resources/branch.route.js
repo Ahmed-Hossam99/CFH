@@ -13,15 +13,6 @@ router.patch(
     "/branch/:id",
     policies.isAllowed(["admin"]),
     ctrls.BranchCtrl.updateOne
-); router.get(
-    "/branches",
-    policies.isAllowed(["admin"]),
-    ctrls.BranchCtrl.fetchAll
-);
-router.get(
-    "/branch/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.BranchCtrl.fetchOne
 );
 router.delete(
     "/branch/:id",
