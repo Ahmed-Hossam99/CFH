@@ -35,6 +35,11 @@ const schema = new mongoose.Schema(
       enum: ["male", "female"],
       required: true,
     },
+    booking: {
+      type: String,
+      enum: ["external", "internal"],
+      required: true,
+    },
     age: {
       type: String,
       required: true,
