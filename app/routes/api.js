@@ -36,25 +36,22 @@ apiRouter.get("/instructions", ctrls.InstructionCtrl.fetchAll);
 
 apiRouter.get("/team/:id", ctrls.TeamCtrl.fetchOne);
 apiRouter.get("/teams", ctrls.TeamCtrl.fetchAll);
-
+// =========== about =====================
 apiRouter.get("/about/:id", ctrls.AboutCtrl.fetchOne);
 apiRouter.get("/abouts", ctrls.AboutCtrl.fetchAll);
+// =========== ads =====================
 apiRouter.get("/ads/:id", ctrls.AdsCtrl.fetchOne);
 apiRouter.get("/ads", ctrls.AdsCtrl.fetchAll);
+// =========== contact =====================
 
 apiRouter.post("/contact", ctrls.ContactCtrl.createOne);
 
-// apiRouter.get("/all-tests", ctrls.TestCtrl.fetchAll);
-// apiRouter.get("/test/:id", ctrls.TestCtrl.fetchOne);
-
+// =========== product =====================
 apiRouter.get("/tests", ctrls.ProductCtrl.fetchAll);
 apiRouter.get("/packages", ctrls.ProductCtrl.fetchAll);
 apiRouter.get("/offers", ctrls.ProductCtrl.fetchAll);
-// apiRouter.get("/package/:id", ctrls.PackageCtrl.fetchOne);
-
 apiRouter.get("/product/:id", ctrls.ProductCtrl.fetchOne);
-// apiRouter.get("/packages/:id", ctrls.ProductCtrl.fetchOne);
-// apiRouter.get("/offers/:id", ctrls.ProductCtrl.fetchOne);
+
 
 
 
