@@ -14,16 +14,7 @@ router.patch(
     policies.isAllowed(["admin"]),
     ctrls.RegionCtrl.updateOne
 );
-router.get(
-    "/regions",
-    policies.isAllowed(["admin"]),
-    ctrls.RegionCtrl.fetchAll
-);
-router.get(
-    "/region/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.RegionCtrl.fetchOne
-);
+
 router.delete(
     "/region/:id",
     policies.isAllowed(["admin"]),

@@ -34,6 +34,11 @@ apiRouter.get("/topics/:id", ctrls.TopicCtrl.fetchOne);
 apiRouter.get("/instruction/:id", ctrls.InstructionCtrl.fetchOne);
 apiRouter.get("/instructions", ctrls.InstructionCtrl.fetchAll);
 
+
+apiRouter.get("/regions", ctrls.RegionCtrl.fetchAll);
+apiRouter.get("/region/:id", ctrls.RegionCtrl.fetchOne);
+
+
 apiRouter.get("/team/:id", ctrls.TeamCtrl.fetchOne);
 apiRouter.get("/teams", ctrls.TeamCtrl.fetchAll);
 // =========== about =====================
