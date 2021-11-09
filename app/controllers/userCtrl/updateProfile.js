@@ -12,7 +12,7 @@ module.exports = $baseCtrl(
     if (req.files && req.files["photo"]) {
       req.body.photo = req.files["photo"][0].secure_url;
     }
-    console.log(req.body.key[0])
+
 
 
     let existingUser

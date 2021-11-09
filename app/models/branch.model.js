@@ -25,8 +25,11 @@ const schema = new mongoose.Schema(
         },
         coordinates: {
             type: [Number],
-            required: true
-        }
+        },
+        location: {
+            type: String,
+            require: true
+        },
 
     },
     { timestamps: true }
@@ -38,7 +41,8 @@ const response = (doc) => {
         titleEn: doc.titleEn,
         region: doc.region,
         city: doc.city,
-        coordinates: doc.coordinates,
+        // coordinates: doc.coordinates,
+        location: doc.location,
         createdAt: doc.createdAt,
         updatedAt: doc.updatedAt,
     };

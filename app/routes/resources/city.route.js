@@ -16,12 +16,12 @@ router.patch(
 );
 router.get(
     "/city/:id",
-    policies.isAllowed(["admin"]),
+
     ctrls.CityCtrl.fetchOne
 );
 router.get(
     "/cities",
-    policies.isAllowed(["admin"]),
+
     ctrls.CityCtrl.fetchAll
 );
 router.delete(

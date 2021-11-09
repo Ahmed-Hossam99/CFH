@@ -25,14 +25,7 @@ module.exports = $baseCtrl(
         }
 
         // handel package && offer tests
-        if (type === 'package') {
-
-            const tests = await models.test.find({ _id: { $in: req.body.tests } });
-            const typeTests = tests.map(
-                (test) => test.id);
-            req.body.tests = typeTests
-        }
-        if (type === 'offer') {
+        if (type === 'package' || type === 'offer') {
 
             const tests = await models.test.find({ _id: { $in: req.body.tests } });
             const typeTests = tests.map(
