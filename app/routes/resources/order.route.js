@@ -12,27 +12,12 @@ router.post(
 
 router.post("/orders-normal", ctrls.OrderCtrl.createOne);
 router.post("/order-offer", ctrls.OrderCtrl.createOne);
-router.get("/orders-normal", ctrls.OrderCtrl.fetchAll);
-
-router.patch(
-    "/orders/:id", ctrls.OrderCtrl.updateOne);
-// router.post(
-//     "/offers",
-//     policies.isAllowed(["admin"]),
-//     ctrls.OrderCtrl.createOne
-// );
-// //=============================
-router.patch(
-    "/product/:id",
+router.get("/orders", ctrls.OrderCtrl.fetchAll);
+router.get("/orders/:id", ctrls.OrderCtrl.fetchOne);
+router.patch("/orders/:id", ctrls.OrderCtrl.updateOne);
+router.delete("/orders/:id",
     policies.isAllowed(["admin"]),
-    ctrls.OrderCtrl.updateOne
-);
-// //======================================
-// router.delete(
-//     "/product/:id",
-//     policies.isAllowed(["admin"]),
-//     ctrls.OrderCtrl.deleteOne
-// );
+    ctrls.OrderCtrl.deleteOne);
 
 
 module.exports = router;

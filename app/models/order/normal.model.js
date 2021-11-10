@@ -24,11 +24,9 @@ const schema = new mongoose.Schema(
     },
     from: {
       type: String,
-      required: true,
     },
     to: {
       type: String,
-      required: true,
     },
     address: {
       type: String,
