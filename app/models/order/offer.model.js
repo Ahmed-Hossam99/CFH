@@ -21,4 +21,4 @@ const schema = new mongoose.Schema(
   },
   { discriminatorKey: "type" }
 );
-module.exports = OrderModel.discriminator("order-offer", schema);
+module.exports = OrderModel.discriminator("orders-offer", schema);

@@ -22,7 +22,11 @@ const schema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    time: {
+    from: {
+      type: String,
+      required: true,
+    },
+    to: {
       type: String,
       required: true,
     },
@@ -53,6 +57,9 @@ const schema = new mongoose.Schema(
       type: String,
     },
     clientNotes: {
+      type: String,
+    },
+    whyRejected: {
       type: String,
     },
   },

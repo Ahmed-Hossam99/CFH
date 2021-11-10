@@ -58,6 +58,8 @@ apiRouter.get("/packages", ctrls.ProductCtrl.fetchAll);
 apiRouter.get("/offers", ctrls.ProductCtrl.fetchAll);
 apiRouter.get("/product/:id", ctrls.ProductCtrl.fetchOne);
 
+
+
 apiRouter.get("/branches", ctrls.BranchCtrl.fetchAll);
 apiRouter.get("/branch/:id", ctrls.BranchCtrl.fetchOne);
 

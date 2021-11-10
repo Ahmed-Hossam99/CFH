@@ -7,28 +7,32 @@ const router = express.Router();
 router.post(
     "/tests",
     policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.createOne
-); router.post(
-    "/packages",
-    policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.createOne
-); router.post(
-    "/offers",
-    policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.createOne
+    ctrls.OrderCtrl.createOne
 );
-//=============================
+
+router.post("/orders-normal", ctrls.OrderCtrl.createOne);
+router.post("/order-offer", ctrls.OrderCtrl.createOne);
+router.get("/orders-normal", ctrls.OrderCtrl.fetchAll);
+
+router.patch(
+    "/orders/:id", ctrls.OrderCtrl.updateOne);
+// router.post(
+//     "/offers",
+//     policies.isAllowed(["admin"]),
+//     ctrls.OrderCtrl.createOne
+// );
+// //=============================
 router.patch(
     "/product/:id",
     policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.updateOne
+    ctrls.OrderCtrl.updateOne
 );
-//======================================
-router.delete(
-    "/product/:id",
-    policies.isAllowed(["admin"]),
-    ctrls.ProductCtrl.deleteOne
-);
+// //======================================
+// router.delete(
+//     "/product/:id",
+//     policies.isAllowed(["admin"]),
+//     ctrls.OrderCtrl.deleteOne
+// );
 
 
 module.exports = router;
