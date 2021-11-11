@@ -6,7 +6,7 @@ const cloudinaryStorage = require("../../services/cloudinaryStorage");
 module.exports = $baseCtrl(
     [
         { name: "image", maxCount: 20 },
-        { name: "icon", maxCount: 1 }
+        { name: "pdf", maxCount: 10 },
     ],
     cloudinaryStorage,
     async (req, res) => {
@@ -14,14 +14,10 @@ module.exports = $baseCtrl(
         if (isNaN(id)) return APIResponse.NotFound(res);
         const order = await models._order.findById(id);
         if (!order) return APIResponse.NotFound(res, "No order With That Id");
-
-
-
-
         // client side
         if (req.me.role === 'client') {
-            console.log(order.client)
-            console.log(req.me._id)
+            // console.log(order.client)
+            // console.log(req.me._id)
             if (order.client !== req.me._id) return res.status(403).json({ flag: 1010 });
             if (order.status !== 'pending') return res.status(400).json({ flag: 1008 });
             delete req.body.booking;
@@ -59,6 +55,8 @@ module.exports = $baseCtrl(
             if (req.body.status === "accepted") {
                 title = "Your order has been accepted";
                 body = `Order #${order.id} has been accepted`;
+                if (!req.body.timeAttendance)
+                    return res.status(400).json({ flag: 10011 });
             }
             if (req.body.status === 'rejected') {
                 title = 'Your order has been rejected';
@@ -83,7 +81,10 @@ module.exports = $baseCtrl(
             }
         }
 
-        //  section result  &&  //update image 
+        // update result here 
+        // if (req.files && req.files["pdf"]) {
+        //     req.body.link = req.files["pdf"][0].secure_url;
+        // }
         await order.set(req.body).save();
 
         return APIResponse.Ok(res, order);

@@ -23,6 +23,7 @@ const schema = new mongoose.Schema(
 const response = (doc) => {
   return {
     id: doc.id,
+    booking: doc.booking,
     client: doc.client,
     username: doc.username,
     phone: doc.phone,
@@ -35,6 +36,7 @@ const response = (doc) => {
     address: doc.address,
     gender: doc.gender,
     age: doc.age,
+    timeAttendance: doc.timeAttendance,
     status: doc.status,
     adminNotes: doc.adminNotes,
     clientNotes: doc.clientNotes,

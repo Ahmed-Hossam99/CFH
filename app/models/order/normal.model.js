@@ -28,6 +28,9 @@ const schema = new mongoose.Schema(
     to: {
       type: String,
     },
+    timeAttendance: {
+      type: String,
+    },
     address: {
       type: String,
       required: true,
