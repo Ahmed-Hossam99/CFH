@@ -37,6 +37,13 @@ const schema = new mongoose.Schema(
       }
 
     ],
+    descriptionEn: {
+      type: String,
+      required: true,
+    }, descriptionAr: {
+      type: String,
+      required: true,
+    },
   },
   { discriminatorKey: "type" }
 );

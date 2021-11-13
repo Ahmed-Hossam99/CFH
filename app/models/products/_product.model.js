@@ -47,6 +47,8 @@ const response = (doc) => {
     icon: doc.icon,
     titleAr: doc.titleAr,
     titleEn: doc.titleEn,
+    descriptionEn: doc.descriptionEn,
+    descriptionAr: doc.descriptionAr,
     branches: doc.branches,
     price: doc.price,
     priceAfterDiscount: doc.priceAfterDiscount,
