@@ -5,7 +5,7 @@ const policies = require("../../policies");
 const router = express.Router();
 
 router.post(
-    "/tests",
+    "/add-tests",
     policies.isAllowed(["admin"]),
     ctrls.ProductCtrl.createOne
 ); router.post(
