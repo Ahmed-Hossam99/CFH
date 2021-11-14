@@ -11,7 +11,7 @@ module.exports = $baseCtrl(
     async (req, res) => {
         let routePath = req.route.path.split('/')
         let type = routePath[1] === "add-tests" ? "test" : routePath[1] === "packages" ? "package" : "offer";
-        console.log(routePath[1])
+        // console.log(routePath[1])
 
         // handel brnches
         const branchs = await models.branch.find({ _id: { $in: req.body.branches } });
