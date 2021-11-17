@@ -34,7 +34,7 @@ module.exports = $baseCtrl(async (req, res) => {
         {
 
             ...req.queryOptions,
-            populate: ['products']
+            populate: ['products', 'offers']
         }
     );
     return APIResponse.Ok(res, orders);
