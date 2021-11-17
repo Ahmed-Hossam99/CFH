@@ -9,7 +9,8 @@ module.exports = $baseCtrl(async (req, res) => {
     if (!result) return APIResponse.NotFound(res, "NO result With That Id");
     if (result.subjectType === 'order') {
         let order = await models._order.findOne({ result: result._id })
-        order.result = undefined
+        order.result = undefined;
+        order.result = 'inProgress'
         await order.save()
     }
 
