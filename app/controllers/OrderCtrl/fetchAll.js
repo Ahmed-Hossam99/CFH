@@ -21,8 +21,8 @@ module.exports = $baseCtrl(async (req, res) => {
         query.phone = req.query.phone
         delete req.queryFilter.phone //to delete it from queryFilter 
     }
-    console.log(query)
-    console.log(req.queryFilter)
+    // console.log(query)
+    // console.log(req.queryFilter)
 
     const orders = await models._order.fetchAll(
         req.allowPagination,
