@@ -6,12 +6,13 @@ const cloudinaryStorage = require("../../services/cloudinaryStorage");
 module.exports = $baseCtrl(
     [
         { name: "pdf" },
-        { name: "images" }
+        { name: "image" }
     ],
     cloudinaryStorage,
     async (req, res) => {
         let photos = [];
         if (req.files && req.files["image"]) {
+            console.log('here')
             for (let i = 0; i < req.files["image"].length; i++) {
                 photos.push(req.files['image'][i].secure_url)
             }
