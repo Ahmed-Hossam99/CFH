@@ -20,6 +20,13 @@ const schema = new mongoose.Schema(
     },
     titleEn: {
       type: String,
+      required: true,
+
+    },
+    client: {
+      type: Number,
+      ref: "user",
+      required: true,
     },
     subject: {
       type: Number,
@@ -45,6 +52,7 @@ const response = (doc) => {
     titleEn: doc.titleEn,
     subject: doc.subject,
     subjectType: doc.subjectType,
+    client: doc.client,
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,
   };

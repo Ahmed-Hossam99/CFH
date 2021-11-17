@@ -18,6 +18,16 @@ router.patch("/orders/:id", ctrls.OrderCtrl.updateOne);
 router.delete("/orders/:id",
     policies.isAllowed(["admin"]),
     ctrls.OrderCtrl.deleteOne);
+router.delete("/results/:id",
+    policies.isAllowed(["admin"]),
+    ctrls.OrderCtrl.deleteResult);
+router.get("/results", ctrls.OrderCtrl.fetchAllResult);
+router.patch("/result/:id",
+    policies.isAllowed(["admin"]),
+    ctrls.OrderCtrl.updateResult);
+router.post("/results",
+    policies.isAllowed(["admin"]),
+    ctrls.OrderCtrl.addResult);
 
 
 module.exports = router;
