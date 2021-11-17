@@ -25,6 +25,8 @@ router.get("/results", ctrls.OrderCtrl.fetchAllResult);
 router.patch("/result/:id",
     policies.isAllowed(["admin"]),
     ctrls.OrderCtrl.updateResult);
+router.get("/results/:id",
+    ctrls.OrderCtrl.fetchOneResult);
 router.post("/results",
     policies.isAllowed(["admin"]),
     ctrls.OrderCtrl.addResult);

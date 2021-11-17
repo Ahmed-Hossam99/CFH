@@ -32,7 +32,7 @@ module.exports = $baseCtrl(async (req, res) => {
                 }),
                 ...(req.me.role === 'client' && req.query.today && {
                     client: req.me.id,
-                    today: createdAt = { $gte: moment.utc().startOf('d').toDate(), },
+                    createdAt: { $gte: moment.utc().startOf('d').toDate(), },
 
                 }),
 
