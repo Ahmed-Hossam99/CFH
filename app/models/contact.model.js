@@ -21,6 +21,11 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      required: true,
+      enum: ["seen", "unseen"],
+    },
   },
   { timestamps: true }
 );
@@ -32,6 +37,7 @@ const response = (doc) => {
     phone: doc.phone,
     email: doc.email,
     message: doc.message,
+    status: doc.status,
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,
   };

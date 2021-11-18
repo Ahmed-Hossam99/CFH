@@ -21,7 +21,13 @@ module.exports = $baseCtrl(async (req, res) => {
         query.phone = req.query.phone
         delete req.queryFilter.phone //to delete it from queryFilter 
     }
-    // console.log(query)
+    if (req.query.day) {
+        query.day = {
+            $eq: moment.utc(req.query.day).startOf('d').toDate(),
+        }
+        delete req.queryFilter.day //to delete it from queryFilter 
+    }
+    console.log(query)
     // console.log(req.queryFilter)
 
     const orders = await models._order.fetchAll(
