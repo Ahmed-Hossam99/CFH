@@ -22,6 +22,7 @@ module.exports = $baseCtrl(
             if (order.status !== 'pending') return res.status(400).json({ flag: 1008 });
             delete req.body.booking;
             delete req.body.status;
+            delete req.body.timeAttendance;
 
             if (req.body.products) {
                 const orderProducts = await models._product.find({ _id: { $in: req.body.products } });
