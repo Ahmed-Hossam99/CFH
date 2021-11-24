@@ -150,7 +150,10 @@ module.exports = $baseCtrl(async (req, res) => {
         {
 
             ...req.queryOptions,
-            populate: ['products', 'offers', { path: 'products', populate: { path: 'tests' } }]
+            populate: [
+                { path: 'products', populate: { path: 'tests' } },
+                { path: 'offers', populate: { path: 'tests' } }
+            ]
         }
     );
     return APIResponse.Ok(res, orders);
