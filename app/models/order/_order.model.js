@@ -37,6 +37,7 @@ const response = (doc) => {
     gender: doc.gender,
     age: doc.age,
     timeAttendance: doc.timeAttendance,
+    whyRejected: doc.whyRejected,
     status: doc.status,
     adminNotes: doc.adminNotes,
     clientNotes: doc.clientNotes,
