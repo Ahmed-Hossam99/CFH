@@ -27,9 +27,15 @@ module.exports = $baseCtrl(async (req, res) => {
 
                 }),
 
+                ...(req.me.role === 'admin' && req.query.order && {
+                    subject: parseInt(req.query.order),
+                }),
+
                 ...(req.me.role === 'admin' && req.query.subjectType && {
                     subjectType: req.query.subjectType,
                 }),
+
+
                 ...(req.me.role === 'client' && req.query.today && {
                     client: req.me.id,
                     createdAt: { $gte: moment.utc().startOf('d').toDate(), },
@@ -58,6 +64,7 @@ module.exports = $baseCtrl(async (req, res) => {
                         titleAr: "$titleAr",
                         subjectType: "$subjectType",
                         images: "$images",
+                        subject: "$subject",
                         attachment: "$attachment",
                         createdAt: "$createdAt",
                     },
