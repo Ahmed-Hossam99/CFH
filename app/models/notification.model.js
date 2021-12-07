@@ -11,6 +11,14 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    titleAr: {
+      type: String,
+      required: true,
+    },
+    bodyAr: {
+      type: String,
+      required: true,
+    },
     icon: {
       type: String,
       default:
@@ -31,14 +39,8 @@ const schema = new mongoose.Schema(
     subjectType: {
       type: String,
       enum: [
-        "post",
-        "comment",
-        "solution",
-        "materila",
-        "lesson",
-        "exam",
-        "session",
-        "admin",
+        "order",
+        "result",
       ],
     },
     subject: {
