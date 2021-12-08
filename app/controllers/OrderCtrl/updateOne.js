@@ -10,10 +10,12 @@ module.exports = $baseCtrl(
     ],
     cloudinaryStorage,
     async (req, res) => {
+        const user = req.authenticatedUser;
         const id = parseInt(req.params.id);
         if (isNaN(id)) return APIResponse.NotFound(res);
         const order = await models._order.findById(id);
         if (!order) return APIResponse.NotFound(res, "No order With That Id");
+        let title, body, titleAr, bodyAr;
         // client side
         if (req.me.role === 'client') {
             // console.log(order.client)
@@ -41,8 +43,8 @@ module.exports = $baseCtrl(
             if (req.body.date) {
                 title = 'client change order date ';
                 body = `Order #${order.id} date  has been changed to ${req.body.date}`;
-                titleAr = 'تم رفع نتيجة الطلب الخاص بك';
-                bodyAr = `طلبك رقم ${order.id} تم رفع نتيجه`;
+                titleAr = 'تم تغير ميعاد الطلب الخاص بك';
+                bodyAr = `طلبك رقم ${order.id} تم تغير ميعاد`;
             }
         }
 
@@ -56,6 +58,8 @@ module.exports = $baseCtrl(
             if (req.body.status === "accepted") {
                 title = "Your order has been accepted";
                 body = `Order #${order.id} has been accepted`;
+                titleAr = 'تم قبول الطلب الخاص بك';
+                bodyAr = `طلبك رقم ${order.id} تم قبوله`;
                 if (!req.body.timeAttendance)
                     return res.status(400).json({ flag: 10011 });
             }
@@ -81,13 +85,22 @@ module.exports = $baseCtrl(
 
             }
         }
-
-        // update result here 
-        // if (req.files && req.files["pdf"]) {
-        //     req.body.link = req.files["pdf"][0].secure_url;
-        // }
+        const notification = await new models.notification({
+            title: title,
+            body: body,
+            titleAr: titleAr,
+            bodyAr: bodyAr,
+            user: user.id,
+            receiver: order.client,
+            subjectType: 'order',
+            subject: order.id,
+        }).save();
+        // console.log(notification);
+        const receiver = await models._user.findOne({
+            _id: order.client,
+        });
+        await receiver.sendNotification(notification.toFirebaseNotification());
         await order.set(req.body).save();
-
         return APIResponse.Ok(res, order);
     });
 
