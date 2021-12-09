@@ -11,6 +11,8 @@ module.exports = $baseCtrl(
     async (req, res) => {
         const id = parseInt(req.body.subject);
         if (isNaN(id)) return APIResponse.NotFound(res);
+        const user = req.authenticatedUser;
+
         const subjectType = req.body.subjectType; //order , user
         console.log(subjectType)
 
@@ -28,7 +30,24 @@ module.exports = $baseCtrl(
             doc.result = newresult._id
             doc.status = 'done'
             await doc.save()
+            const notification = await new models.notification({
+                title:'Your order has been deleverd',
+                body: `Order #${doc.id} has been deleverd`,
+                titleAr: 'تم رفع نتيجة الطلب الخاص بك',
+                bodyAr: `طلبك رقم ${doc.id} تم رفع نتيجه`,
+                user: user.id,
+                receiver: doc.client,
+                subjectType: 'result',
+                subject: newresult._id,
+            }).save();
+            // console.log(notification);
+            const receiver = await models._user.findOne({
+                _id: doc.client,
+            });
+            await receiver.sendNotification(notification.toFirebaseNotification());
+        
         }
+
         return APIResponse.Created(res, newresult);
 
     }
