@@ -66,6 +66,8 @@ const response = (doc) => {
     // type: doc.type,
     title: doc.title,
     body: doc.body,
+    titleAr: doc.titleAr,
+    bodyAr: doc.bodyAr,
     icon: doc.icon,
     read: doc.read,
     initiator: doc.initiator,
