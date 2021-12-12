@@ -75,7 +75,7 @@ module.exports = $baseCtrl(
                 title = 'Your order has been deleverd';
                 body = `Order #${order.id} has been deleverd`;
                 titleAr = 'تم سحب عينة  الطلب الخاص بك';
-                bodyAr = `طلبك رقم ${order.id}تم  تم سحب عينة `;
+                bodyAr = `طلبك رقم ${order.id}تم  تم سحب عينتة `;
             }
             if (req.body.date) {
                 title = 'admin change order date ';
