@@ -71,11 +71,11 @@ module.exports = $baseCtrl(
                 if (!req.body.whyRejected)
                     return res.status(400).json({ flag: 1009 });
             }
-            if (req.body.status === 'done') {
+            if (req.body.status === 'inProgress') {
                 title = 'Your order has been deleverd';
                 body = `Order #${order.id} has been deleverd`;
-                titleAr = 'تم رفع نتيجة الطلب الخاص بك';
-                bodyAr = `طلبك رقم ${order.id} تم رفع نتيجه`;
+                titleAr = 'تم سحب عينة  الطلب الخاص بك';
+                bodyAr = `طلبك رقم ${order.id}تم  تم سحب عينة `;
             }
             if (req.body.date) {
                 title = 'admin change order date ';
