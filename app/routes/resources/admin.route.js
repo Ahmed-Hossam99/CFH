@@ -16,6 +16,14 @@ router.get(
     ctrls.AdminCtrl.fetchAll
 );
 
+router.get(
+    "/fetch/:id/client",
+    policies.isAllowed(["admin"]),
+    ctrls.AdminCtrl.fetchOne
+);
+
+
+
 router.delete(
     "/delete/:id/client",
     policies.isAllowed(["admin"]),
@@ -27,6 +35,8 @@ router.put(
     policies.isAllowed(["admin"]),
     ctrls.AdminCtrl.updateOne
 );
+
+
 
 
 module.exports = router;
