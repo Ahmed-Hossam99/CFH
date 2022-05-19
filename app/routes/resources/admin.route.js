@@ -10,5 +10,23 @@ router.post(
     ctrls.AdminCtrl.addClient
 );
 
+router.get(
+    "/fetch/clients",
+    policies.isAllowed(["admin"]),
+    ctrls.AdminCtrl.fetchAll
+);
+
+router.delete(
+    "/delete/:id/client",
+    policies.isAllowed(["admin"]),
+    ctrls.AdminCtrl.deleteOne
+);
+
+router.put(
+    "/update/:id/client",
+    policies.isAllowed(["admin"]),
+    ctrls.AdminCtrl.updateOne
+);
+
 
 module.exports = router;
