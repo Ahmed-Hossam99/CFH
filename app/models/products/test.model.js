@@ -28,11 +28,11 @@ const schema = new mongoose.Schema(
         },
         descriptionAr: {
           type: String,
-          required: true
+
         },
         descriptionEn: {
           type: String,
-          required: true
+
         }
       }
 
