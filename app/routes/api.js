@@ -66,12 +66,33 @@ apiRouter.get("/branch/:id", ctrls.BranchCtrl.fetchOne);
 apiRouter.get("/city/:id", ctrls.CityCtrl.fetchOne);
 apiRouter.get("/cities", ctrls.CityCtrl.fetchAll);
 
+
+// apiRouter.post(
+//   "/poll",
+//   ctrls.PollCtrl.createOnePoll
+// );
+
+apiRouter.get(
+  "/questions",
+  ctrls.PollCtrl.fetchAllQuestion
+);
+
+
+
+
+
 apiRouter.post("/test", ctrls.AuthCtrl.test);
+
+
+
+
+
 // private
 apiRouter.use(policies.isAuthenticated);
 
 // populate all resources
-for (let key of Object.keys(resources)) {
+for (let key of Object.keys(resources))
+{
   let resource = resources[key];
   apiRouter.use(resource);
 }

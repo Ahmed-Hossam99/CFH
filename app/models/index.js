@@ -21,4 +21,6 @@ module.exports = {
   _order: require("./order/_order.model"),
   orderOffer: require("./order/offer.model"),
   orderNormal: require("./order/normal.model"),
+  question: require("./questions.model"),
+  poll: require("./poll.model"),
 };

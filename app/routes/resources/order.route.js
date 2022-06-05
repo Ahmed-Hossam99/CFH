@@ -21,15 +21,24 @@ router.delete("/orders/:id",
 router.delete("/results/:id",
     policies.isAllowed(["admin"]),
     ctrls.OrderCtrl.deleteResult);
+
+
 router.get("/results", ctrls.OrderCtrl.fetchAllResult);
+
 router.patch("/result/:id",
     policies.isAllowed(["admin"]),
     ctrls.OrderCtrl.updateResult);
+
 router.get("/results/:id",
     ctrls.OrderCtrl.fetchOneResult);
+
 router.post("/results",
     policies.isAllowed(["admin"]),
     ctrls.OrderCtrl.addResult);
 
+
+router.get("/count/orders",
+    policies.isAllowed(["admin"]),
+    ctrls.OrderCtrl.countOrder);
 
 module.exports = router;
