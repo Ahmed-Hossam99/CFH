@@ -8,16 +8,86 @@ const schema = new mongoose.Schema(
       ref: "user",
       required: true,
     },
-    username: {
-      type: String,
-      required: true,
-    },
     phone: {
       type: String,
+      required: false,
+    },
+    // mongodb extend refrence pattern 
+    products: [
+      {
+        product: {
+          id: {
+            type: Number,
+            ref: "_product",
+          },
+          titleAr: {
+            type: String,
+            required: true,
+          },
+          titleEn: {
+            type: String,
+          },
+          descriptionEn: {
+            type: String,
+            required: true,
+          },
+          descriptionAr: {
+            type: String,
+          },
+          image: {
+            type: String,
+            required: true,
+          },
+          icon: {
+            type: String,
+            required: true,
+          },
+          price: {
+            type: String,
+            required: true,
+          },
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    OrderDates: [{
+      status: {
+        type: String,
+        required: true,
+        enum: ["accepted", "rejected", "pending", "inProgress", "done"],
+      },
+      date: {
+        type: Date,
+        required: true,
+      },
+    }],
+    status: {
+      type: String,
+      required: true,
+      enum: ["accepted", "rejected", "pending", "inProgress", "done"],
+    },
+    statusDate: {
+      type: Date,
       required: true,
     },
+    adminNotes: {
+      type: String,
+    },
+    clientNotes: {
+      type: String,
+    },
+    whyRejected: {
+      type: String,
+    },
+
+    totalPrice: {
+      type: Number,
+    },
   },
-  { timestamps: true, discriminatorKey: "type" }
+  { timestamps: true, }
 );
 
 const response = (doc) => {

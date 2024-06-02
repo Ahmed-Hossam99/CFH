@@ -51,7 +51,7 @@ module.exports = {
 //   swaggerDefinition: {
 //     info: {
 //       version: "1.0.0",
-//       title: "Customer Remah",
+//       title: "Customer Hossam",
 //       description: "Customer API Information",
 //       contact: {
 //         name: "Amazing Developer"

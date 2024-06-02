@@ -37,8 +37,7 @@ module.exports = $baseCtrl(
       req.body.username === undefined ||
       req.body.password === undefined ||
       req.body.email === undefined ||
-      req.body.gender === undefined ||
-      req.body.country === undefined
+      req.body.gender === undefined 
     ) {
       return APIResponse.BadRequest(res, "You have to fill all options .");
     }
@@ -48,6 +47,7 @@ module.exports = $baseCtrl(
     if (user) {
       return APIResponse.BadRequest(res, " Email Already in use .");
     }
+   
 
     // Check if phone Already Exist
     if (req.body.phone) {
@@ -76,17 +76,20 @@ module.exports = $baseCtrl(
           "Your role dont allow you to add teacher "
         );
     } else {
+
+       // TODo need a cridential for the send code service 
       // generate random code ***** , and send to user
-      const newCode = generator.generateCodes("#+#+#", 100)[0];
-      req.body.code = newCode;
-      transproter.sendMail({
-        to: req.body.email,
-        from: process.env.email,
-        subject: "verification code",
-        text: ` your verification code is ${newCode}`,
-      });
+      // const newCode = generator.generateCodes("#+#+#", 100)[0];
+      // req.body.code = newCode;
+      // transproter.sendMail({
+      //   to: req.body.email,
+      //   from: process.env.email,
+      //   subject: "verification code",
+      //   text: ` your verification code is ${newCode}`,
+      // });
     }
     // save user to db
+    // TODO for now enadled user directly
     const newUser = await new models._user(req.body).save();
 
     const payload = {

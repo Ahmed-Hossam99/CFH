@@ -7,92 +7,32 @@ const passport = require("passport");
 
 let apiRouter = express.Router();
 
-// public
-// apiRouter.post("/verify-reset", ctrls.AuthCtrl.resetPasswordByPhone);
+// Public APIs
+
+// ======================= Authentication ==================
+apiRouter.post("/signup", ctrls.AuthCtrl.signupPhone);
 apiRouter.post("/forget", ctrls.AuthCtrl.sendForgetSMSPhone);
 apiRouter.post("/check-code", ctrls.AuthCtrl.checkForgetCode);
 apiRouter.post("/reset-password", ctrls.AuthCtrl.resetPasswordAfterCheck);
-apiRouter.post("/signup", ctrls.AuthCtrl.signupPhone);
 apiRouter.post("/verify", ctrls.AuthCtrl.verifyAccountByPhoneCode);
 apiRouter.post("/login-phone", ctrls.AuthCtrl.loginPhone);
+apiRouter.post("/login-email", ctrls.AuthCtrl.loginEmail);
 apiRouter.post("/signup-email", ctrls.AuthCtrl.signupEmail);
 apiRouter.post("/resend", ctrls.AuthCtrl.SendForgetCodeEmail);
 apiRouter.post("/remove-phone", ctrls.AuthCtrl.removePhoneNumber);
-// apiRouter.post("/reset-password", ctrls.AuthCtrl.resetPasswordByEmail);
-apiRouter.post(
-  "/login-google",
-  passport.authenticate("googleToken1", { session: false }),
-  ctrls.AuthCtrl.loginGoogle
-);
+apiRouter.post("/login-google", passport.authenticate("googleToken1", { session: false }), ctrls.AuthCtrl.loginGoogle);// midellware befor google authnetication
 apiRouter.post("/login-facebook", ctrls.AuthCtrl.loginFacebook);
-apiRouter.get("/category", ctrls.CategoryCtrl.fetchAll);
-apiRouter.get("/category/:id", ctrls.CategoryCtrl.fetchOne);
-apiRouter.get("/topics", ctrls.TopicCtrl.fetchAll);
-apiRouter.get("/topics/:id", ctrls.TopicCtrl.fetchOne);
-
-
-apiRouter.get("/instruction/:id", ctrls.InstructionCtrl.fetchOne);
-apiRouter.get("/instructions", ctrls.InstructionCtrl.fetchAll);
-
-
-apiRouter.get("/regions", ctrls.RegionCtrl.fetchAll);
-apiRouter.get("/region/:id", ctrls.RegionCtrl.fetchOne);
-
-
-apiRouter.get("/team/:id", ctrls.TeamCtrl.fetchOne);
-apiRouter.get("/teams", ctrls.TeamCtrl.fetchAll);
-apiRouter.get("/about/", ctrls.AboutCtrl.fetchOne);
-// =========== about =====================
-apiRouter.get("/about/:id", ctrls.AboutCtrl.fetchOne);
-apiRouter.get("/abouts", ctrls.AboutCtrl.fetchAll);
-// =========== ads =====================
-apiRouter.get("/ads/:id", ctrls.AdsCtrl.fetchOne);
-apiRouter.get("/ads", ctrls.AdsCtrl.fetchAll);
-// =========== contact =====================
-
-apiRouter.post("/contact", ctrls.ContactCtrl.createOne);
 
 // =========== product =====================
-apiRouter.get("/tests", ctrls.ProductCtrl.fetchAll);
-apiRouter.get("/packages", ctrls.ProductCtrl.fetchAll);
-apiRouter.get("/offers", ctrls.ProductCtrl.fetchAll);
+apiRouter.get("/products", ctrls.ProductCtrl.fetchAll);
 apiRouter.get("/product/:id", ctrls.ProductCtrl.fetchOne);
 
 
-
-apiRouter.get("/branches", ctrls.BranchCtrl.fetchAll);
-apiRouter.get("/branch/:id", ctrls.BranchCtrl.fetchOne);
-
-apiRouter.get("/city/:id", ctrls.CityCtrl.fetchOne);
-apiRouter.get("/cities", ctrls.CityCtrl.fetchAll);
-
-
-// apiRouter.post(
-//   "/poll",
-//   ctrls.PollCtrl.createOnePoll
-// );
-
-apiRouter.get(
-  "/questions",
-  ctrls.PollCtrl.fetchAllQuestion
-);
-
-
-
-
-
-apiRouter.post("/test", ctrls.AuthCtrl.test);
-
-
-
-
-
-// private
+// private APIS here we are using policies midellware to authenticate routes 
 apiRouter.use(policies.isAuthenticated);
 
 // populate all resources
-for (let key of Object.keys(resources))
-{
+for (let key of Object.keys(resources)) {
   let resource = resources[key];
   apiRouter.use(resource);
 }

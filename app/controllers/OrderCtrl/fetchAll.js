@@ -6,155 +6,123 @@ const { APIResponse } = require("../../utils");
 module.exports = $baseCtrl(async (req, res) => {
 
     const user = req.authenticatedUser;
-    // // prepare pagination options
-    // const limit = req.queryOptions.limit;
-    // const page = req.queryOptions.page;
-    // const skip = limit * (page - 1);
-    // let stages = [
-    //     {
-    //         $match: {
-
-    //             ...(user.role === 'client') && {
-    //                 client: user.id
-    //             },
-    //             ...(user.role === 'admin') && req.query.phone && {
-    //                 phone: req.query.phone
-    //             },
-    //             ...(user.role === 'admin') && req.query.from && req.query.to && {
-    //                 day: {
-    //                     $gte: moment(req.query.from).utc().startOf('d').toDate(),
-    //                     $lt: moment(req.query.to).utc().endOf('d').toDate()
-    //                 }
-
-    //             },
-
-    //             ...(user.role === 'admin') && req.query.day && {
-    //                 day: req.query.day
-    //             },
-
-    //         },
-    //     },
-    //     // {
-    //     //     $addFields: {
-    //     //         day: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-    //     //     },
-    //     // },
-    //     {
-    //         $lookup: {
-    //             from: "products",
-    //             localField: "products",
-    //             foreignField: "_id",
-    //             as: "products",
-    //         },
-    //     },
-    //     // {
-    //     //     $lookup: {
-    //     //         from: "users",
-    //     //         localField: "client",
-    //     //         foreignField: "_id",
-    //     //         as: "client",
-    //     //     },
-    //     // },
-    //     // // {
-    //     // //     $unwind: "$subject",
-    //     // // },
-    //     // {
-    //     //     $unwind: "$client",
-    //     // },
-    //     // // {
-    //     // //     $project: {
-    //     // //         "addedBy.username": 1,
-    //     // //         "addedBy.photo": 1,
-    //     // //         "subject.nameAr": 1,
-    //     // //         "subject.nameEn": 1,
-    //     // //         notes: 1,
-    //     // //         day: { $toDate: "$day" },
-    //     // //     },
-    //     // // },
-    //     // // {
-    //     // //     $group: {
-    //     // //         _id: "$day",
-    //     // //         tasks: {
-    //     // //             $push: {
-    //     // //                 id: "$_id",
-    //     // //                 notes: "$notes",
-    //     // //                 addedBy: "$addedBy",
-    //     // //                 subject: "$subject",
-    //     // //             },
-    //     // //         },
-    //     // //     },
-    //     // // },
-    //     // {
-    //     //     $sort: {
-    //     //         _id: -1,
-    //     //     },
-    //     // },
-    //     // {
-    //     //     $addFields: {
-    //     //         _id: "$$REMOVE",
-    //     //         page,
-    //     //         limit,
-    //     //         skip,
-    //     //         totalPages: {
-    //     //             $ceil: {
-    //     //                 $divide: ["$totalDocs", limit],
-    //     //             },
-    //     //         },
-    //     //     },
-    //     // }
-    // ];
-    // orders = await models._order.aggregate(stages);
-    // orders = orders[0]
-    //     ? orders[0]
-    //     : {
-    //         docs: [],
-    //         totalDocs: 0,
-    //         limit: 10,
-    //         page: 1,
-    //         totalPages: 1,
-    //         isEmpty: true,
-    //     };
-
-
-    let query = {};
-    if (user.role === 'client') query.client = user.id;
-
-    if (req.query.from && req.query.to) {
-        query.day = {
-            $gte: moment(req.query.from).utc().startOf('d').toDate(),
-            $lt: moment(req.query.to).utc().endOf('d').toDate()
-        }
-        delete req.queryFilter.from //to delete it from queryFilter 
-        delete req.queryFilter.to
+    // prepare pagination options with aggrigation 
+    const limit = req.queryOptions.limit;
+    const page = req.queryOptions.page;
+    const skip = limit * (page - 1);
+    let filtersquery = {
+        ...(user.role == 'client' && {
+            client: user.id,
+        }),
     }
-    if (req.query.phone) {
-        query.phone = req.query.phone
-        delete req.queryFilter.phone //to delete it from queryFilter 
-    }
-    if (req.query.day) {
-        query.day = {
-            $eq: moment.utc(req.query.day).startOf('d').toDate(),
-        }
-        delete req.queryFilter.day //to delete it from queryFilter 
-    }
-    console.log(query)
-    // console.log(req.queryFilter)
 
-    const orders = await models._order.fetchAll(
-        req.allowPagination,
+    let orderDocs = await models._order.aggregate([
+        { $match: filtersquery },
         {
-
-            ...req.queryFilter,
-            ...query
+            $sort: {
+                _id: -1
+            }
         },
         {
+            $lookup: {
+                from: "users",
+                localField: "client",
+                foreignField: "_id",
+                pipeline: [
+                    {
+                        $project: {
+                            _id: 1,
+                            photo: 1,
+                            username: 1,
+                        }
+                    }
+                ],
 
-            ...req.queryOptions,
-            populate: [
-                { path: 'products', populate: { path: 'tests' } },
-                { path: 'offers', populate: { path: 'tests' } }
-            ]
-        }
-    );
-    return APIResponse.Ok(res, orders);
+                as: "client",
+            },
+        },
+        {
+            $unwind: "$client",
+            // $preserveNullAndEmptyArrays: false,
+        },
+        {
+            $facet: {
+                totalDocs: [{ $count: 'count' }],
+                docs: req.queryOptions.paginate == true ? [skip, limit] : [],
+            },
+        },
+        {
+            $project: {
+                totalDocs: { $first: '$totalDocs.count' },
+                docs: 1,
+            },
+        },
+        {
+            $addFields: {
+                paginationMeta: {
+                    _id: '$$REMOVE',
+                    page: page == false ? null : page,
+                    limit: limit == false ? null : limit,
+                    skip: req.queryOptions.paginate == false ? null : skip,
+                    totalDocs: '$totalDocs',
+                    totalPages: {
+                        $ceil: {
+                            $divide: [
+                                '$totalDocs',
+                                req.queryOptions.paginate == false ? null : limit,
+                            ],
+                        },
+                    },
+                },
+            },
+        },
+        {
+            $project: {
+                totalDocs: 0,
+            },
+        },
+    ])
+
+
+    // let query = {};
+    // if (user.role === 'client') query.client = user.id;
+
+    // if (req.query.from && req.query.to) {
+    //     query.day = {
+    //         $gte: moment(req.query.from).utc().startOf('d').toDate(),
+    //         $lt: moment(req.query.to).utc().endOf('d').toDate()
+    //     }
+    //     delete req.queryFilter.from //to delete it from queryFilter 
+    //     delete req.queryFilter.to
+    // }
+    // if (req.query.phone) {
+    //     query.phone = req.query.phone
+    //     delete req.queryFilter.phone //to delete it from queryFilter 
+    // }
+    // if (req.query.day) {
+    //     query.day = {
+    //         $eq: moment.utc(req.query.day).startOf('d').toDate(),
+    //     }
+    //     delete req.queryFilter.day //to delete it from queryFilter 
+    // }
+    // console.log(query)
+    // // console.log(req.queryFilter)
+
+    // // const orders = await models._order.fetchAll(
+    // //     req.allowPagination,
+    // //     {
+
+    // //         ...req.queryFilter,
+    // //         ...query
+    // //     },
+    // //     {
+
+    // //         ...req.queryOptions,
+    // //         populate: [
+    // //             { path: 'products', populate: { path: 'tests' } },
+    // //             { path: 'offers', populate: { path: 'tests' } }
+    // //         ]
+    // //     }
+    // // );
+    return APIResponse.Ok(res, orderDocs[0]);
 });

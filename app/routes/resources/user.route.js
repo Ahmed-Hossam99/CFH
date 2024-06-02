@@ -7,9 +7,4 @@ router.put("/change-password", ctrls.userCtrl.changePassword);
 router.patch("/profile", ctrls.userCtrl.updateProfile);
 router.get("/profile", ctrls.userCtrl.me);
 
-router.get(
-    "/count/users",
-    policies.isAllowed(["admin"]),
-    ctrls.userCtrl.countUsers
-);
 module.exports = router;

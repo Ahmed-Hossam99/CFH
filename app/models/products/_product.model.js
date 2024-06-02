@@ -20,24 +20,26 @@ const schema = new mongoose.Schema(
     titleEn: {
       type: String,
     },
-    branches: [
-      {
-        type: Number,
-        ref: "branch", // TODO make sure about naming
-      },
-    ],
+    descriptionEn: {
+      type: String,
+      required: true,
+    },
+    descriptionAr: {
+      type: String,
+    },
     price: {
       type: Number,
-      // required: true,
+      required: true,
       min: 1,
     },
-    priceAfterDiscount: {
+    quantity: {
       type: Number,
+      required: true,
       min: 1,
-      default: null,
     },
+
   },
-  { timestamps: true, discriminatorKey: "type" }
+  { timestamps: true }
 );
 
 const response = (doc) => {
@@ -49,17 +51,8 @@ const response = (doc) => {
     titleEn: doc.titleEn,
     descriptionEn: doc.descriptionEn,
     descriptionAr: doc.descriptionAr,
-    branches: doc.branches,
     price: doc.price,
-    priceAfterDiscount: doc.priceAfterDiscount,
-    offerType: doc.offerType,
-    tests: doc.tests,
-    detailsAr: doc.detailsAr,
-    detailsEn: doc.detailsEn,
-    measuresAr: doc.measuresAr,
-    measuresEn: doc.measuresEn,
-    availableAt: doc.availableAt,
-    possibleResults: doc.possibleResults,
+    quantity: doc.quantity,
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,
   };

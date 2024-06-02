@@ -62,13 +62,7 @@ const schema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    birthdate: {
-      type: Date,
-    },
-    isAllowedToResetPassword: {
-      type: Boolean,
-      default: false,
-    },
+   
     pushTokens: [
       new mongoose.Schema(
         {
